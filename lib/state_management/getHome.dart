@@ -253,7 +253,7 @@ class GetXHome extends BaseController {
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await flutterLocalNotificationsPlugin.show(
-        id++, 'plain title', 'plain body', notificationDetails,
+        id++, 'time', 'Jangan lupa ngaji', notificationDetails,
         payload: 'item x');
   }
 
@@ -266,7 +266,25 @@ class GetXHome extends BaseController {
 
     final tz.TZDateTime now = tz.TZDateTime.now(indonesiaTimeZone);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 10, 28);
+        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 10, 55);
+    print(indonesiaTimeZone);
+    print(now);
+    print(scheduledDate);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
+
+  tz.TZDateTime _nextInstanceOfSetupSubuh() {
+    tz.initializeTimeZones();
+    var locations = tz.timeZoneDatabase.locations;
+
+    var indonesiaTimeZone = tz.getLocation('Asia/Jakarta');
+
+    final tz.TZDateTime now = tz.TZDateTime.now(indonesiaTimeZone);
+    tz.TZDateTime scheduledDate =
+        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 4, 30);
     print(indonesiaTimeZone);
     print(now);
     print(scheduledDate);
@@ -280,9 +298,26 @@ class GetXHome extends BaseController {
   Future<void> scheduleDailyTenAMNotification() async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         id++,
-        '',
-        'Jangan Lupa Ngaji 📖',
+        '🕠',
+        'Jangan lupa ngaji 📖',
         _nextInstanceOfSetupTime(),
+        const NotificationDetails(
+          android: AndroidNotificationDetails('daily notification channel id',
+              'daily notification channel name',
+              channelDescription: 'daily notification description'),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time);
+  }
+
+  Future<void> scheduleDailyTenAMNotificationsubuh() async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        id++,
+        '🕠',
+        'Jangan lupa ngaji 📖',
+        _nextInstanceOfSetupSubuh(),
         const NotificationDetails(
           android: AndroidNotificationDetails('daily notification channel id',
               'daily notification channel name',
@@ -303,6 +338,7 @@ class GetXHome extends BaseController {
     configureDidReceiveLocalNotificationSubject();
     configureSelectNotificationSubject();
     scheduleDailyTenAMNotification();
+    scheduleDailyTenAMNotificationsubuh();
   }
 
   String removeAllHtmlTags(String htmlText) {
