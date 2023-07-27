@@ -36,69 +36,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late GetXHome getXHome;
 
-  // Future<void> configureLocalTimeZone() async {
-  //   if (kIsWeb || Platform.isLinux) {
-  //     return;
-  //   }
-  //   tz.initializeTimeZones();
-  //   final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-  //   tz.setLocalLocation(tz.getLocation(timeZoneName));
-  // }
-
-  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  //     FlutterLocalNotificationsPlugin();
-
-  // Future<void> _scheduleDailyTenAMNotification() async {
-  //   await flutterLocalNotificationsPlugin.zonedSchedule(
-  //       0,
-  //       'Yuk ngaji',
-  //       'Waktu nya ngaji',
-  //       _nextInstanceOfTenAM(),
-  //       const NotificationDetails(
-  //         android: AndroidNotificationDetails('daily notification channel id',
-  //             'daily notification channel name',
-  //             channelDescription: 'daily notification description'),
-  //       ),
-  //       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-  //       uiLocalNotificationDateInterpretation:
-  //           UILocalNotificationDateInterpretation.absoluteTime,
-  //       matchDateTimeComponents: DateTimeComponents.time);
-  // }
-
-  // tz.TZDateTime _nextInstanceOfTenAM() {
-  //   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-  //   tz.TZDateTime scheduledDate =
-  //       tz.TZDateTime(tz.local, now.year, now.month, now.day, 11);
-  //   if (scheduledDate.isBefore(now)) {
-  //     scheduledDate = scheduledDate.add(const Duration(days: 1));
-  //   }
-  //   return scheduledDate;
-  // }
-
-  // Future<void> get() async {
-  //   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-  //       !kIsWeb && Platform.isLinux
-  //           ? null
-  //           : await flutterLocalNotificationsPlugin
-  //               .getNotificationAppLaunchDetails();
-  // }
-
   @override
   void initState() {
-    // const AndroidInitializationSettings initializationSettingsAndroid =
-    //     AndroidInitializationSettings('@mipmap/launcher_icon');
-    // final InitializationSettings initializationSettings =
-    //     const InitializationSettings(
-    //   android: initializationSettingsAndroid,
-    // );
     getXHome = Get.put(GetXHome());
     super.initState();
     getXHome.init(context);
-    // getXHome.requestPermissions();
-    // getXHome.isAndroidPermissionGranted();
-    // configureLocalTimeZone();
-    // get();
-    // _scheduleDailyTenAMNotification();
   }
 
   @override
@@ -185,34 +127,6 @@ class _DaftarSuratScreensState extends State<DaftarSuratScreens> {
   void initState() {
     getXHome = Get.put(GetXHome());
     super.initState();
-    get();
-  }
-
-  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  //     FlutterLocalNotificationsPlugin();
-
-  AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  Future<void> get() async {
-    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-        !kIsWeb && Platform.isLinux
-            ? null
-            : await getXHome.flutterLocalNotificationsPlugin
-                .getNotificationAppLaunchDetails();
-  }
-
-  Future<void> showNotification() async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    await getXHome.flutterLocalNotificationsPlugin.show(
-        0, 'plain title', 'plain body', notificationDetails,
-        payload: 'item x');
   }
 
   @override
@@ -516,27 +430,6 @@ class DaftarHadistScreens extends StatelessWidget {
     return Stack(
       children: [
         const BackgroundWave(),
-        // RotatedBox(
-        //   quarterTurns: 90,
-        //   child: SizedBox(
-        //     height: double.infinity,
-        //     child: WaveWidget(
-        //       config: CustomConfig(
-        //         colors: const [
-        //           Color(0xFFBBDEFB),
-        //           Color(0xFF90CAF9),
-        //           Color(0xFF64B5F6),
-        //           Color(0xFF42A5F5),
-        //         ],
-        //         durations: [18000, 8000, 5000, 12000],
-        //         heightPercentages: [0.01, 0.10, 0.15, 0.25],
-        //       ),
-        //       backgroundColor: Colors.transparent,
-        //       size: const Size(double.infinity, double.infinity),
-        //       waveAmplitude: 0,
-        //     ),
-        //   ),
-        // ),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
@@ -545,85 +438,6 @@ class DaftarHadistScreens extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10), color: Colors.white12),
             child: ListView(
               children: [
-                // Container(
-                //   width: ScreenUtil().scaleWidth,
-                //   height: 150,
-                //   decoration: BoxDecoration(
-                //       boxShadow: [
-                //         BoxShadow(
-                //           color: grayColor.withOpacity(0.5),
-                //           spreadRadius: 0,
-                //           blurRadius: 5,
-                //           offset: const Offset(0, 3), // changes position of shadow
-                //         ),
-                //       ],
-                //       borderRadius: const BorderRadius.only(
-                //           bottomLeft: Radius.circular(12),
-                //           bottomRight: Radius.circular(12)),
-                //       color: blueColor),
-                //   child: Column(
-                //     // mainAxisAlignment: MainAxisAlignment.start,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //         children: [
-                //           SizedBox(
-                //             width: 250.w,
-                //             height: 100.w,
-                //             child: Image.asset(
-                //               "assets/images/assalamualaikum.png",
-                //               fit: BoxFit.cover,
-                //             ),
-                //           ),
-                //           SizedBox(
-                //             width: 100.w,
-                //             height: 100.w,
-                //             child: Image.asset(
-                //               "assets/icons/quran.png",
-                //               fit: BoxFit.cover,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //       Text(
-                //         getXHome.format.format(getXHome.today),
-                //         style: fontBold.copyWith(color: grayColor, fontSize: 12.sp),
-                //       )
-                //     ],
-                //   ),
-                // ),
-
-                // ! Search Field
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 12),
-                //   child: TextField(
-                //     controller: getXHome.searchHadistController,
-                //     style: fontMedium.copyWith(color: grayColor, fontSize: 14.sp),
-                //     onChanged: (value) {
-                //       //searchData(st = value.trim().toLowerCase());
-                //       // Method For Searching
-                //     },
-                //     decoration: InputDecoration(
-                //       hintText: "Search terjemahan",
-                //       focusColor: colorSoftBlue,
-                //       contentPadding: const EdgeInsets.all(12),
-                //       suffixIcon: IconButton(
-                //           onPressed: () {
-                //             getXHome
-                //                 .searchHadist(getXHome.searchHadistController.text);
-                //           },
-                //           icon: const Icon(
-                //             size: 30,
-                //             Icons.search,
-                //             color: colorSoftBlue,
-                //           )),
-                //       border: const OutlineInputBorder(
-                //         borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   height: 40,
                   width: 100,
@@ -635,7 +449,7 @@ class DaftarHadistScreens extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextFormField(
-                    style: fontLight.copyWith(color: whiteColor),
+                    style: fontLight.copyWith(color: colorDarkBlue),
                     controller: getXHome.searchHadistController,
                     onChanged: (value) {
                       getXHome
@@ -648,7 +462,7 @@ class DaftarHadistScreens extends StatelessWidget {
                       hintStyle: fontLight.copyWith(color: colorDarkBlue),
                       suffixIcon: IconButton(
                           onPressed: () {
-                            Get.to(const IntersitialScreens());
+                            // Get.to(const IntersitialScreens());
                           },
                           icon: const Icon(
                             size: 30,
@@ -677,7 +491,8 @@ class DaftarHadistScreens extends StatelessWidget {
                   ),
                 ),
                 Obx(() => getXHome.isLoading.value
-                    ? Center(
+                    ? Align(
+                        alignment: Alignment.center,
                         child: LoadingBouncingGrid.square(
                           backgroundColor: whiteColor,
                         ),

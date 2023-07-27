@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,6 @@ import 'package:yuk_ngaji/api/apiRepositoy.dart';
 import 'package:yuk_ngaji/pages/detail_surat_screens.dart';
 import 'package:yuk_ngaji/pages/detail_tafsir_screens.dart';
 import 'package:yuk_ngaji/pages/home_screens.dart';
-import 'package:yuk_ngaji/utils/notification_service.dart';
 import 'package:yuk_ngaji/utils/utils.dart';
 // import 'package:yuk_ngaji/model/detaildaftarsurat.dart';
 
@@ -29,6 +29,20 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 enum StateScreen { initial, loading, loaded, error, empty }
+
+class ReceivedNotification {
+  ReceivedNotification({
+    required this.id,
+    required this.title,
+    required this.body,
+    required this.payload,
+  });
+
+  final int id;
+  final String? title;
+  final String? body;
+  final String? payload;
+}
 
 class GetXHome extends BaseController {
   RxBool audioplayed = false.obs;
@@ -66,6 +80,7 @@ class GetXHome extends BaseController {
   // final GlobalKey<ExpansionTileCardState> cardHadist = GlobalKey();
 
 //! Setup Notifications
+  int id = 0;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   final StreamController<ReceivedNotification>
@@ -73,7 +88,7 @@ class GetXHome extends BaseController {
       StreamController<ReceivedNotification>.broadcast();
 
   final AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/launcher_icon');
+      const AndroidInitializationSettings('@mipmap/launcher_icon');
 
   final StreamController<String?> selectNotificationStream =
       StreamController<String?>.broadcast();
@@ -89,12 +104,10 @@ class GetXHome extends BaseController {
   }
 
   void notificationTapBackground(NotificationResponse notificationResponse) {
-    // ignore: avoid_print
     print('notification(${notificationResponse.id}) action tapped: '
         '${notificationResponse.actionId} with'
         ' payload: ${notificationResponse.payload}');
     if (notificationResponse.input?.isNotEmpty ?? false) {
-      // ignore: avoid_print
       print(
           'notification action tapped with input: ${notificationResponse.input}');
     }
@@ -253,8 +266,10 @@ class GetXHome extends BaseController {
 
     final tz.TZDateTime now = tz.TZDateTime.now(indonesiaTimeZone);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 17);
+        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 10, 28);
+    print(indonesiaTimeZone);
     print(now);
+    print(scheduledDate);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -265,8 +280,8 @@ class GetXHome extends BaseController {
   Future<void> scheduleDailyTenAMNotification() async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         id++,
-        'TEST JAM 16:00 NOTIF',
-        'TEST JAM 16:00 NOTIF',
+        '',
+        'Jangan Lupa Ngaji 📖',
         _nextInstanceOfSetupTime(),
         const NotificationDetails(
           android: AndroidNotificationDetails('daily notification channel id',

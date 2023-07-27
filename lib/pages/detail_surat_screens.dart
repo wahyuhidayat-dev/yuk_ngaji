@@ -125,17 +125,18 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
               ],
               leading: IconButton(
                   onPressed: () {
-                    if (getXHome.listDetailSurat['nomor'] == 1) {
-                      Get.back();
-                      // _interstitialAd?.show().then((value) => Get.back());
-                    }
-                    if (getXHome.listDetailSurat["suratSebelumnya"] == false) {
-                      Get.back();
-                    } else {
-                      getXHome.getDetailSurat(getXHome
-                          .listDetailSurat["suratSebelumnya"]['nomor']
-                          .toString());
-                    }
+                    Get.back();
+                    // if (getXHome.listDetailSurat['nomor'] == 1) {
+                    //   Get.back();
+                    //   // _interstitialAd?.show().then((value) => Get.back());
+                    // }
+                    // if (getXHome.listDetailSurat["suratSebelumnya"] == false) {
+                    //   Get.back();
+                    // } else {
+                    //   getXHome.getDetailSurat(getXHome
+                    //       .listDetailSurat["suratSebelumnya"]['nomor']
+                    //       .toString());
+                    // }
                   },
                   icon: const FaIcon(
                     FontAwesomeIcons.arrowLeft,
@@ -148,27 +149,6 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
           backgroundColor: whiteColor,
           body: Stack(children: [
             const BackgroundWave(),
-            // RotatedBox(
-            //   quarterTurns: 90,
-            //   child: SizedBox(
-            //     height: double.infinity,
-            //     child: WaveWidget(
-            //       config: CustomConfig(
-            //         colors: const [
-            //           Color(0xFFBBDEFB),
-            //           Color(0xFF90CAF9),
-            //           Color(0xFF64B5F6),
-            //           Color(0xFF42A5F5),
-            //         ],
-            //         durations: [18000, 8000, 5000, 12000],
-            //         heightPercentages: [0.01, 0.10, 0.15, 0.25],
-            //       ),
-            //       backgroundColor: Colors.transparent,
-            //       size: const Size(double.infinity, double.infinity),
-            //       waveAmplitude: 0,
-            //     ),
-            //   ),
-            // ),
             NewPageScreens(
               data: getXHome.listDetailSurat["ayat"],
               // nextayat: dataNextAyat,
@@ -217,7 +197,7 @@ class _NewPageScreensState extends State<NewPageScreens> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -243,7 +223,7 @@ class _NewPageScreensState extends State<NewPageScreens> {
                         ],
                       ),
                       SizedBox(
-                        width: 300,
+                        width: 250,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [

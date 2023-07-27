@@ -67,9 +67,9 @@ class CustomBottomNavigation extends StatelessWidget {
       ),
       child: SafeArea(
         child: Container(
-          width: double.infinity,
+          width: ScreenUtil().screenWidth,
           height: containerHeight,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 3),
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
@@ -123,7 +123,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 150 : 110,
+        width: isSelected ? 120 : 100,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -135,7 +135,7 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
           child: SizedBox(
-            width: isSelected ? 150 : 110,
+            width: isSelected ? 120 : 100,
             child: Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
