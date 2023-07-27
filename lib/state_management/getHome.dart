@@ -266,7 +266,7 @@ class GetXHome extends BaseController {
 
     final tz.TZDateTime now = tz.TZDateTime.now(indonesiaTimeZone);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 10, 55);
+        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 17, 55);
     print(indonesiaTimeZone);
     print(now);
     print(scheduledDate);
