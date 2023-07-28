@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:share_plus/share_plus.dart';
 // import 'package:just_audio/just_audio.dart';
 // import 'package:page_flip/page_flip.dart';
 // import 'package:wave/config.dart';
@@ -87,17 +88,6 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
 
   @override
   Widget build(BuildContext context) {
-    // List dataAyat = getXHome.listDetailSurat["ayat"];
-    // Map<String, dynamic> dataNextAyat =
-    //     getXHome.listDetailSurat["suratSelanjutnya"];
-    // List chunks = [];
-    // int chunkSize = 3;
-    // for (var i = 0; i < dataAyat.length; i += chunkSize) {
-    //   chunks.add(dataAyat.sublist(i,
-    //       i + chunkSize > dataAyat.length ? dataAyat.length : i + chunkSize));
-    // }
-    // bool updateData = false;
-
     return SafeArea(
         child: Obx(
       () => Scaffold(
@@ -108,13 +98,10 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
               actions: [
                 IconButton(
                     onPressed: () {
-                      // setState(() {
-                      //   updateData != updateData;
-                      // });
                       getXHome.getDetailSurat(getXHome
                           .listDetailSurat["suratSelanjutnya"]['nomor']
                           .toString());
-                      // dataNextAyat['nomor'],
+
                       // Get.back();
                       // _interstitialAd?.show().then((value) => Get.back());
                     },
@@ -126,17 +113,6 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
               leading: IconButton(
                   onPressed: () {
                     Get.back();
-                    // if (getXHome.listDetailSurat['nomor'] == 1) {
-                    //   Get.back();
-                    //   // _interstitialAd?.show().then((value) => Get.back());
-                    // }
-                    // if (getXHome.listDetailSurat["suratSebelumnya"] == false) {
-                    //   Get.back();
-                    // } else {
-                    //   getXHome.getDetailSurat(getXHome
-                    //       .listDetailSurat["suratSebelumnya"]['nomor']
-                    //       .toString());
-                    // }
                   },
                   icon: const FaIcon(
                     FontAwesomeIcons.arrowLeft,
@@ -151,7 +127,6 @@ class _DetailSuratScreensState extends State<DetailSuratScreens> {
             const BackgroundWave(),
             NewPageScreens(
               data: getXHome.listDetailSurat["ayat"],
-              // nextayat: dataNextAyat,
             ),
             const BannerAdsenseScreen()
           ])),
@@ -177,7 +152,6 @@ class _NewPageScreensState extends State<NewPageScreens> {
   bool changeColor = false;
   @override
   Widget build(BuildContext context) {
-    // GetXHome getXHome = Get.put(GetXHome());
     return SizedBox(
       height: MediaQuery.of(context).size.height / 1.25,
       child: ListView.builder(
@@ -220,6 +194,21 @@ class _NewPageScreensState extends State<NewPageScreens> {
                               },
                             ),
                           ),
+                          GestureDetector(
+                            onTap: () {
+                              Share.share(
+                                  '${widget.data[index]['teksArab']}\n ${widget.data[index]['teksIndonesia']}',
+                                  subject: widget.data[index]['teksArab']);
+                            },
+                            child: const CircleAvatar(
+                                // radius: 15,
+                                backgroundColor: colorSoftBlue,
+                                child: FaIcon(
+                                  FontAwesomeIcons.shareNodes,
+                                  color: whiteColor,
+                                  size: 20,
+                                )),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -246,7 +235,6 @@ class _NewPageScreensState extends State<NewPageScreens> {
                                     )
                                   ]),
                             ),
-
                             Text(
                               widget.data[index]['teksLatin'],
                               textAlign: TextAlign.justify,
@@ -262,14 +250,6 @@ class _NewPageScreensState extends State<NewPageScreens> {
                               style: fontBold.copyWith(
                                   color: colorDarkBlue, fontSize: 14.sp),
                             ),
-                            // const Padding(
-                            //   padding: EdgeInsets.all(8.0),
-                            //   child: Divider(
-                            //     thickness: 2,
-                            //     height: 2,
-                            //     color: whiteColor,
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),

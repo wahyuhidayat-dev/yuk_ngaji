@@ -88,7 +88,7 @@ Map<String, dynamic> dataFaq = {
       "pertanyaan":
           "Pertanyaan: Apakah aplikasi ini menyediakan fitur pembacaan suara (audio)?",
       "jawaban":
-          "Jawaban: Ya, aplikasi kami menyediakan fitur pembacaan suara oleh qari terkenal. Anda dapat mendengarkan bacaan Al-Quran dengan berbagai gaya dan tartil."
+          "Jawaban: Ya, aplikasi kami menyediakan fitur pembacaan suara oleh qari terkenal. Anda dapat mendengarkan bacaan Al-Quran."
     },
     {
       "id": "7",
@@ -102,14 +102,14 @@ Map<String, dynamic> dataFaq = {
       "pertanyaan":
           "Pertanyaan: Apakah ada fitur pengingat untuk membantu saya membaca Quran secara teratur?",
       "jawaban":
-          "Jawaban: Ya, aplikasi kami menyediakan fitur pengingat yang dapat Anda atur untuk membantu Anda menjaga kebiasaan membaca Quran secara teratur."
+          "Jawaban: Tidak ada, aplikasi kami hanya menyediakan fitur pengingat notifikasi untuk membantu Anda menjaga kebiasaan membaca Quran secara teratur."
     },
     {
       "id": "9",
       "pertanyaan":
           "Pertanyaan: Bagaimana cara mendapatkan pembaruan dan fitur terbaru dari aplikasi Quran?",
       "jawaban":
-          "Jawaban: Untuk mendapatkan pembaruan dan fitur terbaru, pastikan Anda mengaktifkan pembaruan otomatis di Google Play Store. Kami juga akan mengirimkan pemberitahuan melalui aplikasi tentang pembaruan yang tersedia."
+          "Jawaban: Untuk mendapatkan pembaruan dan fitur terbaru, pastikan Anda mengaktifkan pembaruan otomatis di Google Play Store."
     }
   ]
 };

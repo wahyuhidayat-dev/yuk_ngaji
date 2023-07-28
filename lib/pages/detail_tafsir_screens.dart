@@ -45,27 +45,6 @@ class _DetailTafsirScreensState extends State<DetailTafsirScreens> {
           )),
       body: Stack(
         children: [
-          // RotatedBox(
-          //   quarterTurns: 90,
-          //   child: SizedBox(
-          //     height: double.infinity,
-          //     child: WaveWidget(
-          //       config: CustomConfig(
-          //         colors: const [
-          //           Color(0xFFBBDEFB),
-          //           Color(0xFF90CAF9),
-          //           Color(0xFF64B5F6),
-          //           Color(0xFF42A5F5),
-          //         ],
-          //         durations: [18000, 8000, 5000, 12000],
-          //         heightPercentages: [0.01, 0.10, 0.15, 0.25],
-          //       ),
-          //       backgroundColor: Colors.transparent,
-          //       size: const Size(double.infinity, double.infinity),
-          //       waveAmplitude: 0,
-          //     ),
-          //   ),
-          // ),
           const BackgroundWave(),
           Padding(
             padding: const EdgeInsets.all(12),

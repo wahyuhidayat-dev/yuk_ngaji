@@ -1,11 +1,11 @@
 // ignore_for_file: sort_child_properties_last, avoid_print
 
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:expansion_tile_card/expansion_tile_card.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -264,7 +264,7 @@ class _DaftarSuratScreensState extends State<DaftarSuratScreens> {
                         hintStyle: fontLight.copyWith(color: colorDarkBlue),
                         suffixIcon: IconButton(
                             onPressed: () {
-                              Get.to(const IntersitialScreens());
+                              // Get.to(const IntersitialScreens());
                             },
                             icon: const Icon(
                               size: 30,
@@ -295,7 +295,8 @@ class _DaftarSuratScreensState extends State<DaftarSuratScreens> {
                   Obx(() => getXHome.isLoading.value
                       ? Center(
                           child: LoadingBouncingGrid.square(
-                            backgroundColor: whiteColor,
+                            backgroundColor: colorDarkBlue,
+                            size: 50,
                           ),
                         )
                       : SizedBox(
@@ -368,13 +369,11 @@ class _DaftarSuratScreensState extends State<DaftarSuratScreens> {
                                                   backgroundColor:
                                                       colorSoftBlue),
                                               onPressed: () {
-                                                print(getXHome
-                                                    .listDaftarSurat[index]
+                                                print(getXHome.items[index]
                                                         ['nomor']
                                                     .toString());
                                                 getXHome.getDetailSurat(getXHome
-                                                    .listDaftarSurat[index]
-                                                        ['nomor']
+                                                    .items[index]['nomor']
                                                     .toString());
                                               },
                                               child: Text(
@@ -391,9 +390,11 @@ class _DaftarSuratScreensState extends State<DaftarSuratScreens> {
                                                   backgroundColor:
                                                       colorSoftBlue),
                                               onPressed: () {
-                                                getXHome.getDetaiTafsir(getXHome
-                                                    .listDaftarSurat[index]
+                                                print(getXHome.items[index]
                                                         ['nomor']
+                                                    .toString());
+                                                getXHome.getDetaiTafsir(getXHome
+                                                    .items[index]['nomor']
                                                     .toString());
                                               },
                                               child: Text(
@@ -491,10 +492,10 @@ class DaftarHadistScreens extends StatelessWidget {
                   ),
                 ),
                 Obx(() => getXHome.isLoading.value
-                    ? Align(
-                        alignment: Alignment.center,
+                    ? Center(
                         child: LoadingBouncingGrid.square(
-                          backgroundColor: whiteColor,
+                          backgroundColor: colorDarkBlue,
+                          size: 50,
                         ),
                       )
                     : SizedBox(
@@ -701,7 +702,8 @@ class _SettingsScreensState extends State<SettingsScreens> {
               ),
             ],
           ),
-        )
+        ),
+        const BannerAdsenseScreen(),
         // Padding(
         //     padding: const EdgeInsets.all(12.0),
         //     child: Container(

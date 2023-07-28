@@ -5,6 +5,7 @@
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +22,7 @@ import 'package:yuk_ngaji/api/apiRepositoy.dart';
 import 'package:yuk_ngaji/pages/detail_surat_screens.dart';
 import 'package:yuk_ngaji/pages/detail_tafsir_screens.dart';
 import 'package:yuk_ngaji/pages/home_screens.dart';
+import 'package:yuk_ngaji/utils/notification_service.dart';
 import 'package:yuk_ngaji/utils/utils.dart';
 // import 'package:yuk_ngaji/model/detaildaftarsurat.dart';
 
@@ -80,19 +82,21 @@ class GetXHome extends BaseController {
   // final GlobalKey<ExpansionTileCardState> cardHadist = GlobalKey();
 
 //! Setup Notifications
-  int id = 0;
+  RxInt id = 0.obs;
+  var intValue = Random().nextInt(100);
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   final StreamController<ReceivedNotification>
       didReceiveLocalNotificationStream =
       StreamController<ReceivedNotification>.broadcast();
 
-  final AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings('@mipmap/launcher_icon');
+  AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/launcher_icon');
 
   final StreamController<String?> selectNotificationStream =
       StreamController<String?>.broadcast();
-  bool _notificationsEnabled = true;
+  bool _notificationsEnabled = false;
 
   Future<void> configureLocalTimeZone() async {
     if (kIsWeb || Platform.isLinux) {
@@ -112,8 +116,6 @@ class GetXHome extends BaseController {
           'notification action tapped with input: ${notificationResponse.input}');
     }
   }
-
-  Future<void> onGoingGetHome() async {}
 
   Future<void> isAndroidPermissionGranted() async {
     if (Platform.isAndroid) {
@@ -239,6 +241,7 @@ class GetXHome extends BaseController {
   }
 
   Future<void> showNotification() async {
+    print('disini id nya  ${id.value}');
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
         !kIsWeb && Platform.isLinux
             ? null
@@ -249,11 +252,12 @@ class GetXHome extends BaseController {
             channelDescription: 'your channel description',
             importance: Importance.max,
             priority: Priority.high,
+            icon: "@mipmap/launcher_icon",
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await flutterLocalNotificationsPlugin.show(
-        id++, 'time', 'Jangan lupa ngaji', notificationDetails,
+        id.value++, 'time', 'Jangan lupa ngaji', notificationDetails,
         payload: 'item x');
   }
 
@@ -266,10 +270,10 @@ class GetXHome extends BaseController {
 
     final tz.TZDateTime now = tz.TZDateTime.now(indonesiaTimeZone);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 17, 55);
-    print(indonesiaTimeZone);
-    print(now);
-    print(scheduledDate);
+        tz.TZDateTime(indonesiaTimeZone, now.year, now.month, now.day, 17, 45);
+    // print(indonesiaTimeZone);
+    // print(now);
+    // print(scheduledDate);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -297,13 +301,16 @@ class GetXHome extends BaseController {
 //! fn schedule run notif
   Future<void> scheduleDailyTenAMNotification() async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        id++,
+        intValue++,
         '🕠',
         'Jangan lupa ngaji 📖',
         _nextInstanceOfSetupTime(),
         const NotificationDetails(
           android: AndroidNotificationDetails('daily notification channel id',
               'daily notification channel name',
+              icon: "@mipmap/launcher_icon",
+              importance: Importance.max,
+              priority: Priority.high,
               channelDescription: 'daily notification description'),
         ),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
@@ -314,7 +321,7 @@ class GetXHome extends BaseController {
 
   Future<void> scheduleDailyTenAMNotificationsubuh() async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        id++,
+        id.value++,
         '🕠',
         'Jangan lupa ngaji 📖',
         _nextInstanceOfSetupSubuh(),
@@ -331,6 +338,16 @@ class GetXHome extends BaseController {
 
   void init(BuildContext context) {
     _context = context;
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    // var initializationSettingsAndroid = AndroidInitializationSettings(
+    //     'app_icon'); // <- default icon name is @mipmap/ic_launcher
+
+    var initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    //     onDidReceiveNotificationResponse: ,
+    //     );
     configureLocalTimeZone();
     isAndroidPermissionGranted();
     requestPermissions();
@@ -338,7 +355,7 @@ class GetXHome extends BaseController {
     configureDidReceiveLocalNotificationSubject();
     configureSelectNotificationSubject();
     scheduleDailyTenAMNotification();
-    scheduleDailyTenAMNotificationsubuh();
+    // scheduleDailyTenAMNotificationsubuh();
   }
 
   String removeAllHtmlTags(String htmlText) {
